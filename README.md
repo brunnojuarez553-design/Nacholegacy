@@ -24,6 +24,7 @@ Vista local: `http://localhost:3000`. El servidor local sirve las páginas; la f
 - `scripts/build.mjs`: páginas, metadatos, schema, sitemap y robots.
 - `scripts/check.mjs`: verificaciones de HTML, enlaces y API.
 - `api/chat.js`: función serverless del asistente.
+- `lib/assistant-fallback.js`: respuestas basadas en datos del taller cuando Groq no responde.
 - `docs/AUDIT-2026-10-02.md`: hallazgos, cambios y pendientes.
 - `dist/`: salida generada, excluida de Git.
 

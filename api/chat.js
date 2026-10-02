@@ -1,3 +1,5 @@
+import { fallbackResponse } from '../lib/assistant-fallback.js';
+
 const BUSINESS_CONTEXT = `
 You are the virtual front-desk assistant for Nacho's Legacy Body Shop, a family-owned collision repair center at 27 Third Street, Lansdowne, PA 19050. Phone: (484) 362-5873. Email: contact@nachoslegacybodyshop.com. Hours: Monday-Friday, 9 AM-6 PM. The shop has 15 years of experience and serves customers in English and Spanish.
 
@@ -15,7 +17,10 @@ Keep unknown lead fields as empty strings. readyToSend should be true only when 
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  if (!process.env.GROQ_API_KEY) return res.status(500).json({ error: 'Missing server configuration' });
+  const input=req.body || {};
+  if (typeof input.message !== 'string' || !input.message.trim()) return res.status(400).json({ error: 'Message required' });
+  const fallback=()=>fallbackResponse(input.message, input.language==='es'?'es':'en');
+  if (!process.env.GROQ_API_KEY) return res.status(200).json(fallback());
   try {
     const { message, language = 'en', history = [], lead = {} } = req.body || {};
     if (typeof message !== 'string' || !message.trim()) return res.status(400).json({ error: 'Message required' });
@@ -23,6 +28,7 @@ export default async function handler(req, res) {
     const safeHistory = Array.isArray(history) ? history.slice(-12).filter(x => ['user','assistant'].includes(x.role) && typeof x.content === 'string').map(x => ({ role:x.role, content:x.content.slice(0,1500) })) : [];
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
+      signal: AbortSignal.timeout(7000),
       headers: { 'Authorization': `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
@@ -50,6 +56,7 @@ export default async function handler(req, res) {
     if (readyToSend) actions.splice(0, actions.length, { type:'sms', label:language === 'es' ? 'Enviar consulta por iMessage / SMS' : 'Send consultation by iMessage / SMS' });
     return res.status(200).json({ reply: String(parsed.reply || (language === 'es' ? '¿En qué puedo ayudarte?' : 'How can I help?')), lead: parsed.lead || {}, readyToSend, actions });
   } catch (error) {
-    return res.status(500).json({ error: 'Assistant unavailable' });
+    console.error('Assistant provider unavailable:', error.name, String(error.message).slice(0,100));
+    return res.status(200).json(fallback());
   }
 }
