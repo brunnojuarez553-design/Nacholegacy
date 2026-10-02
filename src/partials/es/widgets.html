@@ -1,0 +1,156 @@
+<div class="chat-teaser hidden" id="chatTeaser">
+ <button aria-label="Cerrar" class="teaser-close" id="teaserClose" type="button">
+  ×
+ </button>
+ <span>
+  ¿Dudas sobre tu reparación? Estoy para ayudarte.
+ </span>
+</div>
+
+<button aria-expanded="false" aria-label="Abrir el asistente virtual de Nacho's Legacy" class="chat-launcher" id="chatLauncher" type="button">
+ <img alt="" src="https://res.cloudinary.com/dpiavcukm/image/upload/e_trim:15/f_auto,q_auto,c_fill,g_center,w_180,h_180,r_max/v1786510142/Dise%C3%B1o_sin_t%C3%ADtulo_2_ssixsm.png"/>
+</button>
+
+<section aria-hidden="true" aria-label="Asistente virtual" class="chat-panel" id="chatPanel">
+ <header class="chat-head">
+  <img alt="" src="https://res.cloudinary.com/dpiavcukm/image/upload/e_trim:15/f_auto,q_auto,c_fill,g_center,w_120,h_120,r_max/v1786510142/Dise%C3%B1o_sin_t%C3%ADtulo_2_ssixsm.png"/>
+  <div>
+   <b id="chatTitle">
+    Nacho's Virtual Assistant
+   </b>
+   <small id="chatStatus">
+    Online · Replies instantly
+   </small>
+  </div>
+  <button aria-label="Reset conversation" class="chat-reset" id="chatReset" title="Reset conversation" type="button">
+   ↻
+  </button>
+  <button aria-label="Cerrar asistente" class="chat-close" id="chatClose" type="button">
+   ×
+  </button>
+ </header>
+ <div aria-live="polite" class="chat-messages" id="chatMessages">
+ </div>
+ <div class="chat-options" id="chatOptions">
+ </div>
+ <form class="chat-form" id="chatForm">
+  <input aria-label="Tu respuesta" autocomplete="off" id="chatInput" placeholder="Type your answer..."/>
+  <button aria-label="Enviar" type="submit">
+   ↑
+  </button>
+ </form>
+ <div class="chat-note" id="chatNote">
+  Your information is used only to prepare your consultation with the shop.
+ </div>
+</section>
+
+<div aria-hidden="true" aria-label="Vehicle assessment" aria-modal="true" class="modal" id="estimateModal" role="dialog">
+ <div class="modal-card">
+  <button aria-label="Cerrar" class="close" id="closeModal">
+   ×
+  </button>
+  <p class="eyebrow">
+   Evaluación preliminar
+  </p>
+  <h2>
+   Enviá tus datos en menos de 3 minutos.
+  </h2>
+  <p class="modal-intro">
+   Las fotos ayudan a conocer los daños visibles. El presupuesto final requiere inspeccionar el vehículo.
+  </p>
+  <form id="estimateForm">
+   <p class="form-notice">
+    Esto prepara un mensaje en tu aplicación de SMS. Revisalo y envialo al taller. Adjuntá allí las fotos del daño; este sitio no sube ni almacena fotografías.
+   </p>
+   <div class="form-grid">
+    <label class="field">
+     Nombre completo
+     <input autocomplete="name" name="name" placeholder="Your name" required=""/>
+    </label>
+    <label class="field">
+     Número de teléfono
+     <input autocomplete="tel" name="phone" placeholder="(000) 000-0000" required="" type="tel"/>
+    </label>
+    <label class="field">
+     Email
+     <input autocomplete="email" name="email" placeholder="you@email.com" type="email"/>
+    </label>
+    <label class="field">
+     Idioma preferido
+     <select name="preferredLanguage">
+      <option>
+       Inglés
+      </option>
+      <option>
+       Español
+      </option>
+     </select>
+    </label>
+    <label class="field">
+     Vehículo
+     <input name="vehicle" placeholder="Year, make and model" required=""/>
+    </label>
+    <label class="field">
+     ¿Puede circular?
+     <select name="drivable">
+      <option>
+       Seleccioná una opción
+      </option>
+      <option>
+       Sí
+      </option>
+      <option>
+       No
+      </option>
+      <option>
+       No estoy seguro
+      </option>
+     </select>
+    </label>
+    <label class="field">
+     Situación con el seguro
+     <select name="insurance">
+      <option>
+       Seleccioná una opción
+      </option>
+      <option>
+       Tengo un reclamo abierto
+      </option>
+      <option>
+       Necesito ayuda para iniciar un reclamo
+      </option>
+      <option>
+       Pagaré de forma particular
+      </option>
+     </select>
+    </label>
+    <label class="field">
+     Compañía de seguros
+     <input name="insurer" placeholder="Opcional"/>
+    </label>
+    <label class="field full">
+     ¿Qué ocurrió?
+     <textarea name="damage" placeholder="Tell us where the vehicle is damaged..." required=""></textarea>
+    </label>
+    <label class="field full">
+     <span>
+      <input required="" style="width:auto" type="checkbox"/>
+      Acepto que me contacten por esta solicitud.
+     </span>
+    </label>
+   </div>
+   <button class="btn primary" style="margin-top:24px;width:100%" type="submit">
+    Preparar mensaje ↗
+   </button>
+  </form>
+ </div>
+</div>
+
+<div aria-hidden="true" aria-label="Project image" aria-modal="true" class="lightbox" id="galleryLightbox" role="dialog">
+ <button aria-label="Cerrar imagen" class="lightbox-close" id="lightboxClose" type="button">
+  ×
+ </button>
+ <span class="lightbox-count" id="lightboxCount">
+ </span>
+ <img alt="Proyecto ampliado de la galería" id="lightboxImage" src=""/>
+</div>
