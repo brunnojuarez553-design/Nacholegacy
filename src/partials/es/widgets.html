@@ -6,11 +6,9 @@
   ¿Dudas sobre tu reparación? Estoy para ayudarte.
  </span>
 </div>
-
 <button aria-expanded="false" aria-label="Abrir el asistente virtual de Nacho's Legacy" class="chat-launcher" id="chatLauncher" type="button">
  <img alt="" src="https://res.cloudinary.com/dpiavcukm/image/upload/e_trim:15/f_auto,q_auto,c_fill,g_center,w_180,h_180,r_max/v1786510142/Dise%C3%B1o_sin_t%C3%ADtulo_2_ssixsm.png"/>
 </button>
-
 <section aria-hidden="true" aria-label="Asistente virtual" class="chat-panel" id="chatPanel">
  <header class="chat-head">
   <img alt="" src="https://res.cloudinary.com/dpiavcukm/image/upload/e_trim:15/f_auto,q_auto,c_fill,g_center,w_120,h_120,r_max/v1786510142/Dise%C3%B1o_sin_t%C3%ADtulo_2_ssixsm.png"/>
@@ -43,8 +41,7 @@
   Your information is used only to prepare your consultation with the shop.
  </div>
 </section>
-
-<div aria-hidden="true" aria-label="Vehicle assessment" aria-modal="true" class="modal" id="estimateModal" role="dialog">
+<div aria-hidden="true" aria-label="Evaluación del vehículo" aria-modal="true" class="modal" id="estimateModal" role="dialog">
  <div class="modal-card">
   <button aria-label="Cerrar" class="close" id="closeModal">
    ×
@@ -59,13 +56,13 @@
    Las fotos ayudan a conocer los daños visibles. El presupuesto final requiere inspeccionar el vehículo.
   </p>
   <form id="estimateForm">
-   <p class="form-notice">
+   <p class="form-notice" id="assessmentNotice">
     Esto prepara un mensaje en tu aplicación de SMS. Revisalo y envialo al taller. Adjuntá allí las fotos del daño; este sitio no sube ni almacena fotografías.
    </p>
    <div class="form-grid">
     <label class="field">
      Nombre completo
-     <input autocomplete="name" name="name" placeholder="Your name" required=""/>
+     <input autocomplete="name" name="name" placeholder="Tu nombre" required=""/>
     </label>
     <label class="field">
      Número de teléfono
@@ -88,7 +85,7 @@
     </label>
     <label class="field">
      Vehículo
-     <input name="vehicle" placeholder="Year, make and model" required=""/>
+     <input name="vehicle" placeholder="Año, marca y modelo" required=""/>
     </label>
     <label class="field">
      ¿Puede circular?
@@ -130,7 +127,7 @@
     </label>
     <label class="field full">
      ¿Qué ocurrió?
-     <textarea name="damage" placeholder="Tell us where the vehicle is damaged..." required=""></textarea>
+     <textarea name="damage" placeholder="Contanos dónde está dañado el vehículo..." required=""></textarea>
     </label>
     <label class="field full">
      <span>
@@ -139,14 +136,13 @@
      </span>
     </label>
    </div>
-   <button class="btn primary" style="margin-top:24px;width:100%" type="submit">
+   <button aria-describedby="assessmentNotice" class="btn primary" style="margin-top:24px;width:100%" type="submit">
     Preparar mensaje ↗
    </button>
   </form>
  </div>
 </div>
-
-<div aria-hidden="true" aria-label="Project image" aria-modal="true" class="lightbox" id="galleryLightbox" role="dialog">
+<div aria-hidden="true" aria-label="Imagen del trabajo" aria-modal="true" class="lightbox" id="galleryLightbox" role="dialog">
  <button aria-label="Cerrar imagen" class="lightbox-close" id="lightboxClose" type="button">
   ×
  </button>

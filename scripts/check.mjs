@@ -12,7 +12,7 @@ for(const page of manifest){
  const title=html.match(/<title>(.*?)<\/title>/s)[1];assert(!titles.has(title),`${page.url}: duplicate title`);titles.add(title);
  const description=html.match(/<meta name="description" content="([^"]+)"/)[1];assert(!descriptions.has(description),`${page.url}: duplicate description`);descriptions.add(description);
  const graph=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);assert(graph['@graph'].some(x=>x['@type']==='AutoBodyShop'));
- assert(!/PHOTO PLACEHOLDER|Visual demo completed|Google Business Profile setup pending|{{/.test(html),`${page.url}: placeholder`);
+ assert(!/PHOTO PLACEHOLDER|PHOTO PENDING|Visual demo completed|Google Business Profile setup pending|{{/.test(html),`${page.url}: placeholder`);
  for(const match of html.matchAll(/(?:href|src)="(\/[^"#]*)(?:#[^"]*)?"/g)){
   const link=match[1];const file=path.join('dist',link.endsWith('/')?link+'index.html':link);await access(file);
  }
