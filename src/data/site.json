@@ -1,0 +1,24 @@
+{
+  "name": "Nacho's Legacy Body Shop",
+  "url": "https://nacholegacy.vercel.app",
+  "phone": "+14843625873",
+  "email": "contact@nachoslegacybodyshop.com",
+  "address": {
+    "street": "27 Third Street",
+    "city": "Lansdowne",
+    "region": "PA",
+    "postal": "19050"
+  },
+  "logo": "https://res.cloudinary.com/dpiavcukm/image/upload/e_trim:15/f_auto,q_auto,c_fill,g_center,w_180,h_180,r_max/v1786510142/Dise%C3%B1o_sin_t%C3%ADtulo_2_ssixsm.png",
+  "image": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786509848/img_20250324_133234_qpxmdm.webp",
+  "instagram": "https://instagram.com/nachoslegacy",
+  "maps": "https://maps.app.goo.gl/hBEDC8jrUhNDCYGq8",
+  "serviceImages": {
+    "collision": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786509848/img_20250324_133234_qpxmdm.webp",
+    "frame": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786509836/img_20240821_125553-2-edited-1_vbeomf.jpg",
+    "refinishing": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786509828/img_20250225_183542-2_jujjxl.webp",
+    "insurance": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786511635/99C04498-5B6B-4274-8385-49B86CC341A8_dpabau.png",
+    "body": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786509805/img_20250131_100351_hhet5e.webp",
+    "paint": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786509960/img_20250517_154546_osnkgp.jpg"
+  }
+}

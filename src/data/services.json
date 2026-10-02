@@ -1,0 +1,134 @@
+{
+  "collision": {
+    "en": {
+      "title": "Complete collision repair",
+      "text": "A coordinated repair for vehicles damaged in an accident—from initial damage assessment through body work, preparation and final refinishing.",
+      "list": [
+        "Visible and hidden damage assessment",
+        "Body panel repair or replacement planning",
+        "Repair coordination from start to finish",
+        "Final quality review before delivery"
+      ]
+    },
+    "es": {
+      "title": "Reparación completa de colisiones",
+      "text": "Una reparación coordinada para vehículos accidentados, desde la evaluación inicial hasta la carrocería, preparación y acabado final.",
+      "list": [
+        "Evaluación de daños visibles y ocultos",
+        "Planificación de reparación o reemplazo de paneles",
+        "Coordinación del trabajo de principio a fin",
+        "Control final antes de la entrega"
+      ]
+    }
+  },
+  "frame": {
+    "en": {
+      "title": "Structural & frame repair",
+      "text": "Serious impacts can affect the structure beneath the visible body damage. The team can evaluate structural conditions and use frame-machine capability when appropriate.",
+      "list": [
+        "Structural damage evaluation",
+        "Frame-machine measurement and correction",
+        "Alignment of affected structural areas",
+        "Verification before body and paint work"
+      ]
+    },
+    "es": {
+      "title": "Reparación estructural y de chasis",
+      "text": "Los impactos graves pueden afectar la estructura debajo del daño visible. El equipo puede evaluar y utilizar bancada cuando corresponda.",
+      "list": [
+        "Evaluación del daño estructural",
+        "Medición y corrección con bancada",
+        "Alineación de áreas estructurales afectadas",
+        "Verificación previa a carrocería y pintura"
+      ]
+    }
+  },
+  "refinishing": {
+    "en": {
+      "title": "Professional automotive refinishing",
+      "text": "A durable finish depends on preparation—not only the final coat. Repaired surfaces are prepared carefully before professional refinishing.",
+      "list": [
+        "Surface preparation and protection",
+        "Primer and refinishing process",
+        "Controlled application for a clean finish",
+        "Final finish inspection"
+      ]
+    },
+    "es": {
+      "title": "Pintura automotriz profesional",
+      "text": "Un acabado duradero depende de la preparación, no solamente de la capa final. Las superficies se preparan cuidadosamente antes de pintar.",
+      "list": [
+        "Preparación y protección de superficies",
+        "Proceso de imprimación y pintura",
+        "Aplicación controlada para un acabado limpio",
+        "Inspección final del acabado"
+      ]
+    }
+  },
+  "insurance": {
+    "en": {
+      "title": "Insurance claim support",
+      "text": "The shop helps customers understand the collision repair process and organize relevant damage and claim information while they communicate with their insurer.",
+      "list": [
+        "Damage documentation support",
+        "Review of available claim information",
+        "Clear explanation of the repair process",
+        "Direct communication about next steps"
+      ]
+    },
+    "es": {
+      "title": "Asistencia con reclamos de seguro",
+      "text": "El taller ayuda a comprender el proceso y organizar la información relevante del daño y del reclamo mientras el cliente se comunica con su aseguradora.",
+      "list": [
+        "Asistencia con documentación de daños",
+        "Revisión de información disponible del reclamo",
+        "Explicación clara del proceso",
+        "Comunicación directa sobre próximos pasos"
+      ]
+    }
+  },
+  "body": {
+    "en": {
+      "title": "Dent & body repair",
+      "text": "Damaged panels are assessed, reshaped, prepared and aligned to restore proper fit and appearance whenever repair is appropriate.",
+      "list": [
+        "Dent and panel assessment",
+        "Panel shaping and body work",
+        "Fit and gap correction",
+        "Preparation for refinishing"
+      ]
+    },
+    "es": {
+      "title": "Carrocería y abolladuras",
+      "text": "Los paneles dañados se evalúan, conforman, preparan y alinean para recuperar su ajuste y apariencia cuando la reparación es adecuada.",
+      "list": [
+        "Evaluación de paneles y abolladuras",
+        "Conformado y trabajo de carrocería",
+        "Corrección de ajustes y separaciones",
+        "Preparación para pintura"
+      ]
+    }
+  },
+  "paint": {
+    "en": {
+      "title": "Paint & color matching",
+      "text": "Professional blending and color matching help the repaired area integrate consistently with the surrounding finish.",
+      "list": [
+        "Existing finish evaluation",
+        "Professional color matching",
+        "Blending with adjacent panels when needed",
+        "Finish and consistency inspection"
+      ]
+    },
+    "es": {
+      "title": "Pintura e igualación de color",
+      "text": "El difuminado y la igualación profesional ayudan a integrar el área reparada con el acabado existente.",
+      "list": [
+        "Evaluación del acabado existente",
+        "Igualación profesional de color",
+        "Difuminado con paneles adyacentes cuando corresponde",
+        "Inspección de acabado y uniformidad"
+      ]
+    }
+  }
+}
