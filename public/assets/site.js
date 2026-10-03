@@ -8,8 +8,7 @@ function readSession(key,fallback){try{const value=JSON.parse(sessionStorage.get
     function setMenu(open){nav.classList.toggle('open',open);menu.classList.toggle('active',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?(language==='es'?'Cerrar menú':'Close menu'):(language==='es'?'Abrir menú':'Open menu'));document.body.classList.toggle('menu-open',open)}
     menu.addEventListener('click',()=>setMenu(!nav.classList.contains('open')));
     nav.querySelectorAll('a,.menu-estimate').forEach(item=>item.addEventListener('click',()=>setMenu(false)));
-    const heroVideo=document.getElementById('heroVideo');
-    if(heroVideo){
+    document.querySelectorAll('video[data-autoplay]').forEach(heroVideo=>{
       heroVideo.autoplay=true;heroVideo.loop=true;heroVideo.muted=true;heroVideo.defaultMuted=true;heroVideo.playsInline=true;
       heroVideo.setAttribute('autoplay','');heroVideo.setAttribute('muted','');heroVideo.setAttribute('playsinline','');heroVideo.setAttribute('webkit-playsinline','');
       const startVideo=()=>{if(document.hidden)return;heroVideo.muted=true;heroVideo.play().catch(()=>{});};
@@ -17,7 +16,7 @@ function readSession(key,fallback){try{const value=JSON.parse(sessionStorage.get
       document.addEventListener('visibilitychange',()=>{if(!document.hidden)startVideo();});
       for(const event of ['pointerdown','touchstart','keydown'])document.addEventListener(event,startVideo,{once:true,passive:true});
       startVideo();[350,1200,3000].forEach(delay=>setTimeout(startVideo,delay));
-    }
+    });
     const language=document.documentElement.lang;
     function applyLanguage(lang){if(window.chatCopy){document.getElementById('chatTitle').textContent=chatCopy[lang].title;document.getElementById('chatStatus').textContent=chatCopy[lang].status;document.getElementById('chatNote').textContent=chatCopy[lang].note;document.getElementById('chatInput').placeholder=chatCopy[lang].placeholder}}
     const modal=document.getElementById('estimateModal');function setModal(open){modal.classList.toggle('open',open);modal.setAttribute('aria-hidden',String(!open));document.body.classList.toggle('locked',open)}
