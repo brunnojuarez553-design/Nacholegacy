@@ -22,7 +22,32 @@ function readSession(key,fallback){try{const value=JSON.parse(sessionStorage.get
     const modal=document.getElementById('estimateModal');function setModal(open){modal.classList.toggle('open',open);modal.setAttribute('aria-hidden',String(!open));document.body.classList.toggle('locked',open)}
     document.querySelectorAll('.open-estimate').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();setModal(true)}));document.getElementById('closeModal').addEventListener('click',()=>setModal(false));modal.addEventListener('click',e=>{if(e.target===modal)setModal(false)});document.addEventListener('keydown',e=>{if(e.key==='Escape')setModal(false)});
     document.getElementById('estimateForm').addEventListener('submit',e=>{e.preventDefault();const data=new FormData(e.currentTarget);const labels=language==='es'?['Nombre','Teléfono','Email','Idioma','Vehículo','Puede circular','Seguro','Aseguradora','Daños']:['Name','Phone','Email','Language','Vehicle','Drivable','Insurance','Insurer','Damage'];const keys=['name','phone','email','preferredLanguage','vehicle','drivable','insurance','insurer','damage'];const summary=(language==='es'?'Solicitud de evaluación':'Assessment request')+'\n\n'+keys.map((key,i)=>labels[i]+': '+String(data.get(key)||'')).join('\n');location.href='sms:+14843625873?&body='+encodeURIComponent(summary)});
-    const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    // Reveal individual content blocks once, keeping video backgrounds stationary.
+    if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+      const targets=new Map();
+      const addReveal=(selector,direction,stagger=false)=>document.querySelectorAll(selector).forEach((el,index)=>{if(!targets.has(el))targets.set(el,{direction:typeof direction==='function'?direction(index):direction,delay:stagger?(index%4)*70:0});});
+      addReveal('.section-head .eyebrow','down');
+      addReveal('.section-head h2,.section-head>p:not(.eyebrow)','up');
+      addReveal('.service-card','up',true);
+      addReveal('.split-photo,.service-detail>img','left');
+      addReveal('.split-copy>*','right',true);
+      addReveal('.gallery-item',i=>i%2?'right':'left',true);
+      addReveal('.steps article','up',true);
+      addReveal('.deductible>div',i=>i?'right':'left');
+      addReveal('.faq details','up',true);
+      addReveal('.contact>div:first-child>*','left',true);
+      addReveal('.map,.contact-actions','right');
+      addReveal('.local-seo>div,.accident-card','up',true);
+      addReveal('.page-intro>*,.service-detail>div>*,.page-cta>*','up',true);
+      const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+        if(entry.isIntersecting){entry.target.classList.add('scroll-visible');revealObserver.unobserve(entry.target);}
+      }),{threshold:.08,rootMargin:'0px 0px -35px 0px'});
+      targets.forEach(({direction,delay},el)=>{
+        // Already passed content stays visible when opening an anchored section.
+        if(el.getBoundingClientRect().bottom<=0)return;
+        el.dataset.scrollReveal=direction;el.style.setProperty('--reveal-delay',delay+'ms');revealObserver.observe(el);
+      });
+    }
     let lastScroll=0;const siteHeader=document.querySelector('.header');window.addEventListener('scroll',()=>{const current=window.scrollY;siteHeader.classList.toggle('hidden',!nav.classList.contains('open')&&current>lastScroll&&current>180);siteHeader.classList.toggle('scrolled',current>50);lastScroll=current},{passive:true});
     const chatTeaser=document.getElementById('chatTeaser');setTimeout(()=>{if(!sessionStorage.getItem('nachos-teaser-closed'))chatTeaser.classList.remove('hidden')},45000);document.getElementById('teaserClose').addEventListener('click',()=>{chatTeaser.classList.add('hidden');sessionStorage.setItem('nachos-teaser-closed','1')});chatTeaser.addEventListener('click',e=>{if(e.target.id!=='teaserClose'){chatTeaser.classList.add('hidden');openChat()}});
     document.querySelectorAll('.service-card').forEach(card=>{card.style.cursor='pointer';card.addEventListener('click',e=>{if(!e.target.closest('a'))card.querySelector('.service-more')?.click()})});
