@@ -64,3 +64,12 @@ footer.site-footer{display:block;background:#101214;color:#f5f4ef;padding:66px v
 @media(max-width:1000px){.site-footer .footer-grid{grid-template-columns:1fr 1fr;gap:32px 50px}}
 @media(max-width:820px){footer.site-footer{padding-top:45px}.site-footer .footer-invitation{align-items:flex-start;flex-direction:column;gap:24px;padding-bottom:32px;margin-bottom:32px}.site-footer h2{font-size:32px;max-width:380px}.site-footer .footer-grid{gap:30px 24px}.site-footer .footer-identity{grid-column:1/-1}.site-footer .footer-identity>p{max-width:330px;margin-top:14px}.site-footer .footer-column h3{margin-top:0;margin-bottom:15px}.site-footer .footer-bottom{margin-top:30px;align-items:flex-start}.site-footer .footer-bottom p{max-width:220px}.site-footer .footer-bottom>a{white-space:nowrap;gap:9px}}
 @media(max-width:480px){.site-footer .footer-grid{grid-template-columns:1fr 1fr}.site-footer .footer-column:nth-child(3){grid-column:1/-1}.site-footer .footer-column:last-child{grid-column:2;grid-row:2}.site-footer .footer-bottom{flex-direction:column;gap:16px}.site-footer .footer-bottom p{max-width:none}}
+
+/* Original Nacho's Legacy lettering, restored as the official wordmark. */
+.brand-wordmark{display:block;width:154px;height:auto;object-fit:contain;filter:drop-shadow(0 1px 0 #ffffff0a);flex:none}
+.header .brand-wordmark{width:150px;max-height:47px}
+.site-footer .brand-wordmark{width:178px;max-height:58px}
+@media(max-width:1200px){.header .brand-wordmark{width:130px}}
+@media(max-width:1000px){.header .brand-wordmark{width:115px}}
+@media(max-width:820px){.header .brand-wordmark{width:130px}.site-footer .brand-wordmark{width:170px}}
+@media(max-width:480px){.header .brand-wordmark{display:block;width:118px}.header .brand{gap:8px}.site-footer .brand-wordmark{width:168px}}
