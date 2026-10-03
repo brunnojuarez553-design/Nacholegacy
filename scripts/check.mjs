@@ -18,6 +18,7 @@ for(const page of manifest){
  }
  for(const id of ['nav','menu','chatLauncher','chatPanel','chatInput','estimateModal','estimateForm','galleryLightbox'])assert(html.includes(`id="${id}"`),`${page.url}: ${id}`);
 }
+for(const lang of ['en','es']){const home=await readFile(lang==='en'?'dist/index.html':'dist/es/index.html','utf8');for(const id of ['why','work','process','faq'])assert(home.includes(`id="${id}"`),`${lang}: restored homepage section ${id}`);assert(home.includes('language-segments'));assert(home.includes('preload="auto"'));}
 const sitemap=await readFile('dist/sitemap.xml','utf8');assert.equal((sitemap.match(/<loc>/g)||[]).length,26);
 for(const p of manifest)assert(sitemap.includes(`<loc>${p.url}</loc>`));
 // Exercise the existing API with an in-memory provider, without sending visitor data.
