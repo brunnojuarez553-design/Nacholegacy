@@ -100,3 +100,14 @@ footer.site-footer{display:block;background:#101214;color:#f5f4ef;padding:66px v
  .deductible-copy{padding-top:2px}
 }
 @media(max-width:700px){.ticker .ticker-group span:first-child{padding-left:25px}}
+
+/* Final deductible visual centering */
+@media(min-width:901px){
+ .deductible-feature{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(72px,7vw,118px);padding:54px clamp(64px,5.2vw,92px);min-height:440px}
+ .deductible-feature .deductible-heading{align-self:center;max-width:720px}
+ .deductible-feature .deductible-copy{align-self:center;justify-self:end;width:100%;max-width:680px;padding-top:0}
+ .deductible-feature .deductible-heading h2{max-width:720px;margin-bottom:0}
+}
+@media(min-width:1400px){
+ .deductible-feature{grid-template-columns:minmax(560px,1fr) minmax(540px,.92fr)}
+}
