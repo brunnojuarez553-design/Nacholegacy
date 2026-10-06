@@ -1,3 +1,26 @@
+// Start decorative videos before initializing any other interface components.
+document.querySelectorAll('video[data-autoplay]').forEach(video=>{
+  video.defaultMuted=true;video.muted=true;video.autoplay=true;video.loop=true;video.playsInline=true;video.controls=false;
+  for(const attribute of ['autoplay','muted','playsinline','webkit-playsinline'])video.setAttribute(attribute,'');
+  video.removeAttribute('controls');
+  let pending=false;
+  const start=()=>{
+    if(document.hidden||pending||!video.paused)return;
+    video.muted=true;
+    pending=true;
+    Promise.resolve(video.play()).catch(()=>{}).finally(()=>{pending=false;});
+  };
+  for(const event of ['loadedmetadata','loadeddata','canplay'])video.addEventListener(event,start);
+  window.addEventListener('pageshow',start);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)start();});
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting))start();},{threshold:0.01}).observe(video);
+  }
+  // Automatic retries handle media becoming ready after initial rendering.
+  start();[250,750,1500,3000].forEach(delay=>setTimeout(start,delay));
+  // Recovery when a browser explicitly requires a user gesture.
+  for(const event of ['pointerdown','touchstart','keydown'])document.addEventListener(event,start,{passive:true});
+});
 // Preserve links to sections from the former single-page site.
 const oldSections={why:'about',work:'our-work',faq:'faq',process:'repair-process'};
 const oldSection=oldSections[location.hash.slice(1)];if(oldSection&&!document.getElementById(location.hash.slice(1)))location.replace((document.documentElement.lang==='es'?'/es/':'/')+oldSection+'/');
@@ -8,15 +31,6 @@ function readSession(key,fallback){try{const value=JSON.parse(sessionStorage.get
     function setMenu(open){nav.classList.toggle('open',open);menu.classList.toggle('active',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?(language==='es'?'Cerrar menú':'Close menu'):(language==='es'?'Abrir menú':'Open menu'));document.body.classList.toggle('menu-open',open)}
     menu.addEventListener('click',()=>setMenu(!nav.classList.contains('open')));
     nav.querySelectorAll('a,.menu-estimate').forEach(item=>item.addEventListener('click',()=>setMenu(false)));
-    document.querySelectorAll('video[data-autoplay]').forEach(heroVideo=>{
-      heroVideo.autoplay=true;heroVideo.loop=true;heroVideo.muted=true;heroVideo.defaultMuted=true;heroVideo.playsInline=true;
-      heroVideo.setAttribute('autoplay','');heroVideo.setAttribute('muted','');heroVideo.setAttribute('playsinline','');heroVideo.setAttribute('webkit-playsinline','');
-      const startVideo=()=>{if(document.hidden)return;heroVideo.muted=true;heroVideo.play().catch(()=>{});};
-      heroVideo.addEventListener('loadeddata',startVideo);heroVideo.addEventListener('canplay',startVideo);window.addEventListener('load',startVideo,{once:true});window.addEventListener('pageshow',startVideo);
-      document.addEventListener('visibilitychange',()=>{if(!document.hidden)startVideo();});
-      for(const event of ['pointerdown','touchstart','keydown'])document.addEventListener(event,startVideo,{once:true,passive:true});
-      startVideo();[350,1200,3000].forEach(delay=>setTimeout(startVideo,delay));
-    });
     const language=document.documentElement.lang;
     function applyLanguage(lang){if(window.chatCopy){document.getElementById('chatTitle').textContent=chatCopy[lang].title;document.getElementById('chatStatus').textContent=chatCopy[lang].status;document.getElementById('chatNote').textContent=chatCopy[lang].note;document.getElementById('chatInput').placeholder=chatCopy[lang].placeholder}}
     const modal=document.getElementById('estimateModal');function setModal(open){modal.classList.toggle('open',open);modal.setAttribute('aria-hidden',String(!open));document.body.classList.toggle('locked',open)}
