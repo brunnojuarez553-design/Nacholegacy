@@ -121,3 +121,7 @@ footer.site-footer{display:block;background:#101214;color:#f5f4ef;padding:66px v
 @keyframes deductible-cta-shine{0%,35%{background-position:180% 0;opacity:0}48%{opacity:.75}65%,100%{background-position:-40% 0;opacity:0}}
 @keyframes deductible-cta-sparks{0%,30%,72%,100%{opacity:0;transform:translateY(-50%) scale(.3) rotate(0)}43%,57%{opacity:1;transform:translateY(-50%) scale(1) rotate(22deg)}}
 @media(prefers-reduced-motion:reduce){.deductible-feature .btn.open-estimate,.deductible-feature .btn.open-estimate:before,.deductible-feature .btn.open-estimate:after{animation:none!important}}
+
+/* Decorative video backgrounds have no interactive player controls. */
+video[data-autoplay]{pointer-events:none}
+video[data-autoplay]::-webkit-media-controls{display:none!important}
