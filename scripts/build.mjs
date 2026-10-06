@@ -2,7 +2,7 @@ import {readFile,writeFile,mkdir,rm,cp} from 'node:fs/promises';
 import path from 'node:path';
 const site=JSON.parse(await readFile('src/data/site.json','utf8'));
 const services=JSON.parse(await readFile('src/data/services.json','utf8'));
-const origin=new URL(process.env.SITE_URL||site.url).origin;
+const origin=new URL(site.url).origin;
 const esc=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const fragment=(lang,kind,name)=>readFile(`src/${kind}/${lang}/${name}.html`,'utf8');
 const route=(lang,slug='')=>(lang==='es'?'/es/':'/')+(slug?slug+'/':'');
