@@ -28,8 +28,8 @@ function response(){return{code:200,status(code){this.code=code;return this},jso
 let res=response();await handler({method:'GET'},res);assert.equal(res.code,405);
 res=response();await handler({method:'POST',body:{message:''}},res);assert.equal(res.code,400);
 globalThis.fetch=async()=>({ok:true,json:async()=>({choices:[{message:{content:JSON.stringify({reply:'Hello',lead:{},readyToSend:false,actions:[{type:'invented'},{type:'call',label:'Call'}]})}}]})});
-res=response();await handler({method:'POST',body:{message:'Hi'}},res);assert.equal(res.code,200);assert.equal(res.body.actions.length,1);assert.equal(res.body.actions[0].type,'call');
-globalThis.fetch=async()=>({ok:false,status:503});res=response();await handler({method:'POST',body:{message:'Hi'}},res);assert.equal(res.code,200);assert(res.body.reply.includes('shop'));
-res=response();await handler({method:'POST',body:{message:'__WELCOME__',language:'es'}},res);assert.equal(res.code,200);assert(res.body.reply.includes('Hola'));assert.equal(res.body.actions.length,3);
+res=response();await handler({method:'POST',body:{message:'Hi'}},res);assert.equal(res.code,200);assert.equal(res.body.actions.length,1);assert.equal(res.body.actions[0].type,'call');assert.equal(res.body.mode,'ai');
+globalThis.fetch=async()=>({ok:false,status:503});res=response();await handler({method:'POST',body:{message:'Hi'}},res);assert.equal(res.code,200);assert(res.body.reply.includes('shop'));assert.equal(res.body.mode,'fallback');
+res=response();await handler({method:'POST',body:{message:'__WELCOME__',language:'es'}},res);assert.equal(res.code,200);assert(res.body.reply.includes('Hola'));assert.equal(res.body.actions.length,3);assert(['ai','fallback'].includes(res.body.mode));
 globalThis.fetch=originalFetch;delete process.env.GROQ_API_KEY;
 console.log(`Verified ${manifest.length} pages: HTML SEO, bilingual alternates, schema, local links, sitemap, shared controls and API validation/fallback.`);
