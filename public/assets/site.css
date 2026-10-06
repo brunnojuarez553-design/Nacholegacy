@@ -85,3 +85,18 @@ footer.site-footer{display:block;background:#101214;color:#f5f4ef;padding:66px v
 .deductible-points strong{font-size:13px;line-height:1.35}
 .deductible-points span{margin-top:3px;font-size:11px;line-height:1.55;color:#ffe7e7}
 @media(max-width:700px){.deductible-feature{margin-top:14px}.deductible-badge{margin:14px 0 18px}.deductible-lead{font-size:14px!important}.deductible-points{gap:10px}.deductible-points li{padding-bottom:10px}}
+
+/* Seamless ticker and refined deductible alignment */
+.ticker{display:flex}
+.ticker>.ticker-track{display:flex;width:max-content;animation:ticker-loop 32s linear infinite;will-change:transform}
+.ticker .ticker-group{display:flex;align-items:center;flex:none;white-space:nowrap}
+.ticker .ticker-group span:first-child{padding-left:40px}
+@keyframes ticker-loop{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@media(prefers-reduced-motion:reduce){.ticker>.ticker-track{animation-duration:80s}}
+@media(min-width:901px){
+ .deductible-feature{grid-template-columns:minmax(0,1.05fr) minmax(420px,.95fr);align-items:start;gap:clamp(60px,7vw,120px);padding:58px clamp(52px,5vw,88px)}
+ .deductible-heading,.deductible-copy{align-self:start}
+ .deductible-heading h2{max-width:760px}
+ .deductible-copy{padding-top:2px}
+}
+@media(max-width:700px){.ticker .ticker-group span:first-child{padding-left:25px}}
