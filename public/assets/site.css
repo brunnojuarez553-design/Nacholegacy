@@ -111,3 +111,13 @@ footer.site-footer{display:block;background:#101214;color:#f5f4ef;padding:66px v
 @media(min-width:1400px){
  .deductible-feature{grid-template-columns:minmax(560px,1fr) minmax(540px,.92fr)}
 }
+
+/* Premium animated deductible CTA */
+.deductible-feature .btn.open-estimate{position:relative;isolation:isolate;overflow:visible;animation:deductible-cta-pulse 2.8s ease-in-out infinite;box-shadow:0 12px 28px rgba(95,8,12,.2)}
+.deductible-feature .btn.open-estimate:before{content:"";position:absolute;z-index:-1;inset:-1px;border-radius:inherit;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.9) 47%,transparent 68%);background-size:230% 100%;animation:deductible-cta-shine 3.4s ease-in-out infinite;opacity:.72;pointer-events:none}
+.deductible-feature .btn.open-estimate:after{content:"";position:absolute;left:-22px;top:50%;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:-10px -10px 0 -1px rgba(255,255,255,.9),-13px 8px 0 -1.5px rgba(255,255,255,.7),calc(100% + 44px) -9px 0 -1px rgba(255,255,255,.9),calc(100% + 49px) 8px 0 -1.5px rgba(255,255,255,.72);transform:translateY(-50%) scale(.35) rotate(0);opacity:0;animation:deductible-cta-sparks 2.8s ease-in-out infinite;pointer-events:none}
+.deductible-feature .btn.open-estimate:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 34px rgba(95,8,12,.28)}
+@keyframes deductible-cta-pulse{0%,100%{transform:translateY(0) scale(1);box-shadow:0 12px 28px rgba(95,8,12,.2),0 0 0 0 rgba(255,255,255,.25)}50%{transform:translateY(-2px) scale(1.018);box-shadow:0 18px 34px rgba(95,8,12,.26),0 0 0 9px rgba(255,255,255,0)}}
+@keyframes deductible-cta-shine{0%,35%{background-position:180% 0;opacity:0}48%{opacity:.75}65%,100%{background-position:-40% 0;opacity:0}}
+@keyframes deductible-cta-sparks{0%,30%,72%,100%{opacity:0;transform:translateY(-50%) scale(.3) rotate(0)}43%,57%{opacity:1;transform:translateY(-50%) scale(1) rotate(22deg)}}
+@media(prefers-reduced-motion:reduce){.deductible-feature .btn.open-estimate,.deductible-feature .btn.open-estimate:before,.deductible-feature .btn.open-estimate:after{animation:none!important}}
