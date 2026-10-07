@@ -125,3 +125,8 @@ footer.site-footer{display:block;background:#101214;color:#f5f4ef;padding:66px v
 /* Decorative video backgrounds have no interactive player controls. */
 video[data-autoplay]{pointer-events:none}
 video[data-autoplay]::-webkit-media-controls{display:none!important}
+
+/* Grounded local-service content for search and visitors. */
+.service-areas,.capabilities{background:#f4f2ed}.area-grid,.capability-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.area-grid article,.capability-grid article{border:1px solid #d9d6cf;border-radius:20px;background:#fff;padding:27px;min-height:180px}.area-grid h3,.capability-grid h3{font-size:21px;letter-spacing:-.035em;margin:0 0 13px}.area-grid p,.capability-grid p,.area-note{font-size:12px;line-height:1.75;color:#6e7174;margin:0}.area-note{margin:26px 0 0;padding:20px 24px;border-left:3px solid var(--red);background:#fff}.deductible-tiers{display:grid;gap:8px;margin:0 0 22px}.deductible-tiers>div{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:12px}.deductible-tiers strong{font-size:13px;color:#fff;white-space:nowrap}
+@media(max-width:820px){.area-grid,.capability-grid{grid-template-columns:1fr 1fr}.area-grid article,.capability-grid article{padding:22px;min-height:160px}}
+@media(max-width:520px){.area-grid,.capability-grid{grid-template-columns:1fr}.area-grid article,.capability-grid article{min-height:0}.deductible-tiers>div{font-size:11px}.deductible-tiers strong{font-size:12px}}
