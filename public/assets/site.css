@@ -130,3 +130,18 @@ video[data-autoplay]::-webkit-media-controls{display:none!important}
 .service-areas,.capabilities{background:#f4f2ed}.area-grid,.capability-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.area-grid article,.capability-grid article{border:1px solid #d9d6cf;border-radius:20px;background:#fff;padding:27px;min-height:180px}.area-grid h3,.capability-grid h3{font-size:21px;letter-spacing:-.035em;margin:0 0 13px}.area-grid p,.capability-grid p,.area-note{font-size:12px;line-height:1.75;color:#6e7174;margin:0}.area-note{margin:26px 0 0;padding:20px 24px;border-left:3px solid var(--red);background:#fff}.deductible-tiers{display:grid;gap:8px;margin:0 0 22px}.deductible-tiers>div{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:12px}.deductible-tiers strong{font-size:13px;color:#fff;white-space:nowrap}
 @media(max-width:820px){.area-grid,.capability-grid{grid-template-columns:1fr 1fr}.area-grid article,.capability-grid article{padding:22px;min-height:160px}}
 @media(max-width:520px){.area-grid,.capability-grid{grid-template-columns:1fr}.area-grid article,.capability-grid article{min-height:0}.deductible-tiers>div{font-size:11px}.deductible-tiers strong{font-size:12px}}
+
+/* Complete, readable contact information in both languages. */
+.contact{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+.contact-copy{min-width:0}
+.contact-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px;margin:0}
+.contact-details>div{min-width:0;padding-top:16px;border-top:1px solid #d2cfc7}
+.contact-details .contact-detail-wide{grid-column:1/-1}
+.contact-details dt{font-size:10px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:#686b6f;margin-bottom:8px}
+.contact-details dd{margin:0;font-size:14px;line-height:1.65;color:#24272b;overflow-wrap:anywhere}
+.contact-details a{transition:color .2s;text-decoration:underline;text-decoration-color:#24272b30;text-underline-offset:4px}
+.contact-details a:hover{color:var(--red);text-decoration-color:currentColor}
+.contact .contact-actions{margin-top:25px}
+.contact .map{min-height:480px}
+@media(max-width:820px){.contact{grid-template-columns:minmax(0,1fr)}.contact .map{min-height:330px}.contact .contact-actions{margin-top:0}.contact-details{gap:18px 20px}.contact-details dd{font-size:14px}}
+@media(max-width:380px){.contact-details{grid-template-columns:minmax(0,1fr)}.contact-details .contact-detail-wide{grid-column:auto}.contact .contact-actions .btn{flex:1 1 140px}}
