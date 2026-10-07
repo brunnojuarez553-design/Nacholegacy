@@ -13,6 +13,8 @@
   "image": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786509848/img_20250324_133234_qpxmdm.webp",
   "instagram": "https://instagram.com/nachoslegacy",
   "maps": "https://maps.app.goo.gl/hBEDC8jrUhNDCYGq8",
+  "serviceAreas": ["Lansdowne", "Darby", "Upper Darby", "Folcroft", "Clifton Heights", "Yeadon", "Drexel Hill"],
+  "insurers": ["Progressive", "GEICO", "State Farm", "OTTO", "Allstate"],
   "serviceImages": {
     "collision": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786509848/img_20250324_133234_qpxmdm.webp",
     "frame": "https://res.cloudinary.com/dpiavcukm/image/upload/f_auto,q_auto,w_900/v1786509836/img_20240821_125553-2-edited-1_vbeomf.jpg",
