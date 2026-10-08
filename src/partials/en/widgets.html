@@ -56,9 +56,7 @@
    Photos help us understand visible damage. A final estimate requires a proper vehicle inspection.
   </p>
   <form id="estimateForm">
-   <p class="form-notice" id="assessmentNotice">
-    This prepares a message in your SMS app. Review it and send it to the shop. Attach damage photos there; this website does not upload or store photos.
-   </p>
+   <p class="form-notice" id="assessmentNotice">Your request is saved in the shop system. No SMS is sent automatically.</p>
    <div class="form-grid">
     <label class="field">
      Full name
@@ -90,16 +88,16 @@
     <label class="field">
      Can it be driven?
      <select name="drivable">
-      <option>
+      <option value="">
        Choose one
       </option>
-      <option>
+      <option value="true">
        Yes
       </option>
-      <option>
+      <option value="false">
        No
       </option>
-      <option>
+      <option value="">
        Not sure
       </option>
      </select>
@@ -107,16 +105,16 @@
     <label class="field">
      Insurance status
      <select name="insurance">
-      <option>
+      <option value="">
        Choose one
       </option>
-      <option>
+      <option value="open">
        I have an open claim
       </option>
-      <option>
+      <option value="help">
        I need help starting a claim
       </option>
-      <option>
+      <option value="self_pay">
        I will pay directly
       </option>
      </select>
@@ -129,6 +127,7 @@
      What happened?
      <textarea name="damage" placeholder="Tell us where the vehicle is damaged..." required=""></textarea>
     </label>
+    <label class="field full">Damage photos (optional, up to 10)<input type="file" name="photos" accept="image/jpeg,image/png,image/webp" multiple></label>
     <label class="field full">
      <span>
       <input required="" style="width:auto" type="checkbox"/>
@@ -137,7 +136,7 @@
     </label>
    </div>
    <button aria-describedby="assessmentNotice" class="btn primary" style="margin-top:24px;width:100%" type="submit">
-    Prepare message ↗
+    Submit request ↗
    </button>
   </form>
  </div>
