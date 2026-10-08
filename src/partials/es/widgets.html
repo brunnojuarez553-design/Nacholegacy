@@ -56,9 +56,7 @@
    Las fotos ayudan a conocer los daños visibles. El presupuesto final requiere inspeccionar el vehículo.
   </p>
   <form id="estimateForm">
-   <p class="form-notice" id="assessmentNotice">
-    Esto prepara un mensaje en tu aplicación de SMS. Revisalo y envialo al taller. Adjuntá allí las fotos del daño; este sitio no sube ni almacena fotografías.
-   </p>
+   <p class="form-notice" id="assessmentNotice">Tu solicitud se guarda en el sistema del taller. No se envía ningún SMS automáticamente.</p>
    <div class="form-grid">
     <label class="field">
      Nombre completo
@@ -90,16 +88,16 @@
     <label class="field">
      ¿Puede circular?
      <select name="drivable">
-      <option>
+      <option value="">
        Seleccioná una opción
       </option>
-      <option>
+      <option value="true">
        Sí
       </option>
-      <option>
+      <option value="false">
        No
       </option>
-      <option>
+      <option value="">
        No estoy seguro
       </option>
      </select>
@@ -107,16 +105,16 @@
     <label class="field">
      Situación con el seguro
      <select name="insurance">
-      <option>
+      <option value="">
        Seleccioná una opción
       </option>
-      <option>
+      <option value="open">
        Tengo un reclamo abierto
       </option>
-      <option>
+      <option value="help">
        Necesito ayuda para iniciar un reclamo
       </option>
-      <option>
+      <option value="self_pay">
        Pagaré de forma particular
       </option>
      </select>
@@ -129,6 +127,7 @@
      ¿Qué ocurrió?
      <textarea name="damage" placeholder="Contanos dónde está dañado el vehículo..." required=""></textarea>
     </label>
+    <label class="field full">Fotos del daño (opcional, hasta 10)<input type="file" name="photos" accept="image/jpeg,image/png,image/webp" multiple></label>
     <label class="field full">
      <span>
       <input required="" style="width:auto" type="checkbox"/>
@@ -137,7 +136,7 @@
     </label>
    </div>
    <button aria-describedby="assessmentNotice" class="btn primary" style="margin-top:24px;width:100%" type="submit">
-    Preparar mensaje ↗
+    Enviar solicitud ↗
    </button>
   </form>
  </div>
