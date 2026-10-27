@@ -54,6 +54,25 @@ footer{flex:0 0 auto;margin-top:0;padding-top:10px;gap:6px 10px;font-size:7px;li
 @media(max-width:365px){.card{padding-left:14px;padding-right:14px}.intro h1{font-size:clamp(34px,11.2vw,42px)}.description{font-size:12px}.quick-grid a{min-height:74px}.modal-card{padding-left:14px;padding-right:14px}.urgent div{grid-template-columns:1fr}.photo-add b{width:34px;height:34px;font-size:25px}}
 @media(max-width:540px) and (max-height:720px){.intro{margin:18px 0 12px}.location{margin-bottom:11px}.description{display:none}.primary{min-height:60px}.quick-grid{min-height:152px}.quick-grid a{min-height:0}.quick-grid small{display:none}footer p:nth-child(2){display:none}}
 @media(max-height:520px) and (orientation:landscape){.card{height:auto;min-height:100dvh;overflow:visible}.intro{margin:14px 0 12px}.description,.areas,footer p:nth-child(2){display:none}.quick-grid{flex:none;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:minmax(70px,1fr);min-height:70px}.quick-grid a{min-height:70px}.modal-card{padding-top:60px}}
+
+/* Confirmed request and accessible feedback */
+.modal .bio-consent{display:flex;flex-direction:row;align-items:flex-start;gap:10px;color:#44484a;font-size:11px;line-height:1.55;font-weight:500;margin:5px 0}
+.modal .bio-consent input{appearance:auto;width:18px;height:18px;min-height:18px;padding:0;margin:0;flex:0 0 18px;accent-color:#d92e32}
+.modal .submit:disabled{opacity:.6;cursor:wait}
+.modal .assessment-form:not(.active){display:none}
+.modal-card.receipt-mode>.eyebrow,.modal-card.receipt-mode>h2,.modal-card.receipt-mode>.modal-intro{display:none}
+.bio-receipt[hidden]{display:none}
+.bio-receipt{min-height:68vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;outline:none;padding:20px 0}
+.bio-receipt-icon{width:70px;height:70px;display:grid;place-items:center;border-radius:50%;background:#e3f1e8;color:#277c4f;border:1px solid #bedfc9;margin:0 0 24px}
+.bio-receipt-icon svg{width:29px;height:29px}
+.bio-receipt-eyebrow{font:700 10px/1.5 monospace;letter-spacing:.14em;color:#b3242a;margin:0 0 14px}
+.bio-receipt h2{font-size:clamp(34px,7vw,50px);max-width:470px}
+.bio-receipt-copy{font-size:14px;line-height:1.7;color:#5c6062;max-width:420px;margin:18px 0 22px}
+.bio-receipt-ref{background:#ebe7e1;border:1px solid #d7d2cb;border-radius:12px;padding:16px;width:100%;max-width:420px}
+.bio-receipt-ref span{display:block;font-size:9px;font-weight:700;letter-spacing:.1em;color:#666;margin-bottom:9px}
+.bio-receipt-ref code{font-size:12px;color:#222;overflow-wrap:anywhere;user-select:all}
+.bio-receipt-done{margin:24px auto 0;justify-content:center;width:min(100%,300px);padding:14px}
+
 </style>
 </head>
 <body>
@@ -169,12 +188,12 @@ footer{flex:0 0 auto;margin-top:0;padding-top:10px;gap:6px 10px;font-size:7px;li
 <label>
 <span data-k="name">
 </span>
-<input name="name" autocomplete="name" required>
+<input name="name" autocomplete="name" maxlength="120" required>
 </label>
 <label>
 <span data-k="vehicle">
 </span>
-<input name="vehicle" required>
+<input name="vehicle" maxlength="180" required>
 </label>
 </div>
 <label id="driveGroup">
@@ -198,23 +217,24 @@ footer{flex:0 0 auto;margin-top:0;padding-top:10px;gap:6px 10px;font-size:7px;li
 <label>
 <span data-k="details">
 </span>
-<textarea name="details" rows="3" required>
+<textarea name="details" rows="3" maxlength="2700" required>
 </textarea>
 </label>
 <label>
 <span data-k="contact">
 </span>
-<input name="contact" required>
+<input name="contact" maxlength="254" autocomplete="off" required>
 </label>
 <div class="photo-upload">
 <div class="photo-upload-head"><strong data-k="photoUpload"></strong><small data-k="photoOptional"></small></div>
 <div class="photo-picker" id="photoPicker">
-<label class="photo-add" for="damagePhotos"><input id="damagePhotos" name="damagePhotos" type="file" accept="image/*" multiple><b>＋</b><span data-k="addPhotos"></span></label>
+<label class="photo-add" for="damagePhotos"><input id="damagePhotos" name="damagePhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple><b>＋</b><span data-k="addPhotos"></span></label>
 </div>
 <span class="photo-count" id="photoCount"></span>
 </div>
 <p class="photo-note"><b>＋</b><span data-k="photoNote"></span></p>
-<p class="error" id="error" data-k="required">
+<label class="bio-consent"><input type="checkbox" name="consent" required><span data-k="consent"></span></label>
+<p class="error" id="error" role="alert" aria-live="polite" data-k="required">
 </p>
 <button class="submit" type="submit">
 <span data-k="send">
@@ -225,26 +245,35 @@ footer{flex:0 0 auto;margin-top:0;padding-top:10px;gap:6px 10px;font-size:7px;li
 </small>
 </div>
 </form>
+<section id="bioReceipt" class="bio-receipt" hidden role="status" aria-live="polite" tabindex="-1">
+  <span class="bio-receipt-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 5 5 9-10"/></svg></span>
+  <p class="bio-receipt-eyebrow" data-k="receiptLabel"></p>
+  <h2 data-k="receiptTitle"></h2>
+  <p class="bio-receipt-copy" data-k="receiptText"></p>
+  <div class="bio-receipt-ref"><span data-k="receiptReference"></span><code id="bioReference"></code></div>
+  <button class="submit bio-receipt-done" id="receiptDone" type="button" data-k="receiptDone"></button>
+</section>
 </div>
 </div>
-<script>
+<script type="module">
+import {buildBioIntake, uploadBioPhotos, sendBioIntake} from '/assets/bio-intake.js';
 const PHONE='+14843625873',copy={en:{location:'Serving Lansdowne & the Philadelphia area',eyebrow:'Local collision repair · English & Spanish',title:'Was your vehicle damaged?',intro:"Tell us what happened and we'll help you choose the fastest next step.",areas:'Lansdowne · Upper Darby · Drexel Hill · Philadelphia',diagnostic:'Tell us about the damage',diagnosticNote:'Quick assessment · Less than 2 minutes',call:'Call now',message:'Text the shop',directions:'Open directions',
 website:'Visit website for more information',
-websiteNote:'Full website',hours:'Open Monday–Friday · 9 AM–6 PM',bilingual:'English & Spanish',footer:'15 years repairing collision damage',modalEyebrow:'Quick damage assessment',modalTitle:'What happened to your vehicle?',modalIntro:"Answer a few simple questions. We'll prepare a message you can send directly to the shop.",situation:'What does your vehicle need?',situations:['Collision or accident repair','Dent or body repair','Paint or color matching','Help with an insurance claim','I am not sure'],name:'Your name',vehicle:'Vehicle — year, make and model',drive:'Can you safely drive it?',driveOptions:['Yes','No','Not sure'],insurance:'Do you have an insurance claim?',insuranceOptions:['Yes, the claim is open','Not yet — I need guidance','I am paying directly','Not sure'],details:'Where is the damage? Briefly tell us what happened',contact:'Phone number or email where we can reach you',send:'Send details by iMessage / SMS',
-privacy:'Your information is only used to prepare this consultation.',
+websiteNote:'Full website',hours:'Open Monday–Friday · 9 AM–6 PM',bilingual:'English & Spanish',footer:'15 years repairing collision damage',modalEyebrow:'Quick damage assessment',modalTitle:'What happened to your vehicle?',modalIntro:"Answer a few simple questions and send your request directly to our team.",situation:'What does your vehicle need?',situations:['Collision or accident repair','Dent or body repair','Paint or color matching','Help with an insurance claim','I am not sure'],name:'Your name',vehicle:'Vehicle — year, make and model',drive:'Can you safely drive it?',driveOptions:['Yes','No','Not sure'],insurance:'Do you have an insurance claim?',insuranceOptions:['Yes, the claim is open','Not yet — I need guidance','I am paying directly','Not sure'],details:'Where is the damage? Briefly tell us what happened',contact:'Phone number or email where we can reach you',send:'Send my request',
+privacy:'Your information is used to respond to this request.',consent:'I agree to be contacted about this request.',receiptLabel:'REQUEST RECEIVED',receiptTitle:'Your vehicle is in good hands.',receiptText:'Our team has received your details and will contact you to discuss the next step.',receiptReference:'YOUR REQUEST REFERENCE',receiptDone:'Done, thank you',sending:'Sending…',contactError:'Enter a valid phone number or email address.',photoError:'Use up to five JPEG, PNG or WebP photos of 8 MB or less.',photoUnavailable:'Photos could not be uploaded. Remove them to send without photos or retry.',sendError:'We could not confirm your request. Your details are still here; please retry or call the shop.',
 required:'Please complete the highlighted information.',chooseCase:'Choose the option that best describes your situation:',caseAccident:'I was in an accident',caseBody:'I need body or paint repair',caseInsurance:'I have an insurance question',changeCase:'Change the type of request',urgentTitle:'If the vehicle cannot be driven, contact us now.',urgentText:'The shop can guide you before the vehicle is moved or scheduled.',urgentCall:'Call the shop',urgentMessage:'Send a message',continueForm:'Continue with a written request',
-photoUpload:'Damage photos',photoOptional:'Optional · up to 5',addPhotos:'Add photos',photoSelected:'photo(s) selected',photoNote:'For this visual demo, photos are previewed on your device. You can attach them after the message opens.',
+photoUpload:'Damage photos',photoOptional:'Optional · up to 5',addPhotos:'Add photos',photoSelected:'photo(s) selected',photoNote:'Photos are optional. Choose JPEG, PNG or WebP images up to 8 MB each.',
 openNow:'Open now · Closes at 6:00 PM',opensToday:'Closed · Opens today at 9:00 AM',opensTomorrow:'Closed · Opens tomorrow at 9:00 AM',opensMonday:'Closed · Opens Monday at 9:00 AM',quickSms:'Hi, I found Nacho\'s Legacy on Instagram and need help with my vehicle.',urgentSms:'Hi, my vehicle cannot be driven and I need guidance.',detailCollision:'Where is the main damage?',collisionOptions:['Front','Rear','Driver side','Passenger side','Multiple areas','Not sure'],detailBody:'What type of work do you need?',bodyOptions:['Dent repair','Body panel repair','Paint repair','Color matching','Scratch or cosmetic damage','Not sure'],detailInsurance:'What do you need help with?',insuranceHelpOptions:['Starting a claim','An open claim','Repair estimate for my claim','Question about my insurer','Not sure']},
 es:{location:'Atendemos Lansdowne y el área de Filadelfia',eyebrow:'Taller local de colisiones · Español e inglés',title:'¿Su vehículo sufrió daños?',intro:'Cuéntenos qué ocurrió y le ayudaremos a elegir el siguiente paso.',areas:'Lansdowne · Upper Darby · Drexel Hill · Filadelfia',diagnostic:'Cuéntenos sobre el daño',diagnosticNote:'Evaluación rápida · Menos de 2 minutos',call:'Llamar ahora',message:'Escribir al taller',directions:'Abrir ubicación',
 website:'Ver sitio web para más información',
-websiteNote:'Sitio completo',hours:'Lunes a viernes · 9:00 a. m.–6:00 p. m.',bilingual:'Atención en español e inglés',footer:'15 años reparando vehículos accidentados',modalEyebrow:'Evaluación rápida del daño',modalTitle:'¿Qué le ocurrió a su vehículo?',modalIntro:'Responda unas preguntas sencillas. Prepararemos un mensaje para enviarlo directamente al taller.',situation:'¿Qué necesita su vehículo?',situations:['Reparación por choque o accidente','Abolladuras o carrocería','Pintura o igualación de color','Ayuda con un reclamo de seguro','No estoy seguro'],name:'Su nombre',vehicle:'Vehículo — año, marca y modelo',drive:'¿Puede conducirlo de forma segura?',driveOptions:['Sí','No','No estoy seguro'],insurance:'¿Tiene un reclamo con el seguro?',insuranceOptions:['Sí, el reclamo está abierto','Todavía no — necesito orientación','Pagaré de forma particular','No estoy seguro'],details:'¿Dónde está el daño? Cuéntenos brevemente qué ocurrió',contact:'Teléfono o email donde podamos contactarlo',send:'Enviar datos por iMessage / SMS',
-privacy:'Sus datos solo se utilizan para preparar esta consulta.',
+websiteNote:'Sitio completo',hours:'Lunes a viernes · 9:00 a. m.–6:00 p. m.',bilingual:'Atención en español e inglés',footer:'15 años reparando vehículos accidentados',modalEyebrow:'Evaluación rápida del daño',modalTitle:'¿Qué le ocurrió a su vehículo?',modalIntro:'Responda unas preguntas sencillas y envíe su solicitud directamente a nuestro equipo.',situation:'¿Qué necesita su vehículo?',situations:['Reparación por choque o accidente','Abolladuras o carrocería','Pintura o igualación de color','Ayuda con un reclamo de seguro','No estoy seguro'],name:'Su nombre',vehicle:'Vehículo — año, marca y modelo',drive:'¿Puede conducirlo de forma segura?',driveOptions:['Sí','No','No estoy seguro'],insurance:'¿Tiene un reclamo con el seguro?',insuranceOptions:['Sí, el reclamo está abierto','Todavía no — necesito orientación','Pagaré de forma particular','No estoy seguro'],details:'¿Dónde está el daño? Cuéntenos brevemente qué ocurrió',contact:'Teléfono o email donde podamos contactarlo',send:'Enviar mi solicitud',
+privacy:'Sus datos se utilizan para responder a esta solicitud.',consent:'Acepto que me contacten por esta solicitud.',receiptLabel:'SOLICITUD RECIBIDA',receiptTitle:'Su vehículo está en buenas manos.',receiptText:'Nuestro equipo recibió sus datos y se pondrá en contacto para indicarle el próximo paso.',receiptReference:'REFERENCIA DE SU SOLICITUD',receiptDone:'Listo, gracias',sending:'Enviando…',contactError:'Ingrese un teléfono o correo electrónico válido.',photoError:'Use hasta cinco fotos JPEG, PNG o WebP de 8 MB o menos.',photoUnavailable:'No se pudieron subir las fotos. Quítelas para enviar sin fotos o vuelva a intentar.',sendError:'No pudimos confirmar la solicitud. Sus datos siguen aquí; vuelva a intentar o llame al taller.',
 required:'Complete la información solicitada.',chooseCase:'Elija la opción que mejor describe su situación:',caseAccident:'Tuve un accidente',caseBody:'Necesito reparar carrocería o pintura',caseInsurance:'Tengo una consulta sobre el seguro',changeCase:'Cambiar el tipo de consulta',urgentTitle:'Si el vehículo no puede circular, contáctenos ahora.',urgentText:'El taller puede orientarlo antes de trasladar o programar el vehículo.',urgentCall:'Llamar al taller',urgentMessage:'Enviar mensaje',continueForm:'Continuar con una solicitud escrita',
-photoUpload:'Fotos del daño',photoOptional:'Opcional · hasta 5',addPhotos:'Agregar fotos',photoSelected:'foto(s) seleccionada(s)',photoNote:'En esta demo visual, las fotos se previsualizan en su dispositivo. Podrá adjuntarlas cuando se abra el mensaje.',
+photoUpload:'Fotos del daño',photoOptional:'Opcional · hasta 5',addPhotos:'Agregar fotos',photoSelected:'foto(s) seleccionada(s)',photoNote:'Las fotos son opcionales. Elija imágenes JPEG, PNG o WebP de hasta 8 MB cada una.',
 openNow:'Abierto ahora · Cierra a las 6:00 p. m.',opensToday:'Cerrado · Abre hoy a las 9:00 a. m.',opensTomorrow:'Cerrado · Abre mañana a las 9:00 a. m.',opensMonday:'Cerrado · Abre el lunes a las 9:00 a. m.',quickSms:'Hola, encontré Nacho\'s Legacy en Instagram y necesito ayuda con mi vehículo.',urgentSms:'Hola, mi vehículo no puede circular y necesito orientación.',detailCollision:'¿Dónde se encuentra el daño principal?',collisionOptions:['Parte delantera','Parte trasera','Lado del conductor','Lado del pasajero','Varias zonas','No estoy seguro'],detailBody:'¿Qué trabajo necesita?',bodyOptions:['Reparar una abolladura','Reparar un panel de carrocería','Reparar la pintura','Igualar el color','Daño cosmético o rayón','No estoy seguro'],detailInsurance:'¿Con qué necesita ayuda?',insuranceHelpOptions:['Iniciar un reclamo','Un reclamo abierto','Presupuesto para el reclamo','Consulta sobre la aseguradora','No estoy seguro']}};
 const storedLanguage=localStorage.getItem('nachos-quick-language');let lang=storedLanguage==='es'||storedLanguage==='en'?storedLanguage:(navigator.language||'en').toLowerCase().startsWith('es')?'es':'en';
 const modal=document.getElementById('modal'),form=document.getElementById('form'),language=document.getElementById('language'),casePicker=document.getElementById('casePicker'),urgent=document.getElementById('urgent'),remaining=document.getElementById('remaining'),drive=document.getElementById('drive'),driveGroup=document.getElementById('driveGroup'),insuranceGroup=document.getElementById('insuranceGroup'),detailType=document.getElementById('detailType'),detailTypeLabel=document.getElementById('detailTypeLabel'),quickSms=document.getElementById('quickSms'),urgentSms=document.getElementById('urgentSms'),statusDot=document.getElementById('statusDot'),statusText=document.getElementById('statusText');
-const photoInput=document.getElementById('damagePhotos'),photoPicker=document.getElementById('photoPicker'),photoCount=document.getElementById('photoCount');let selectedPhotos=[],photoUrls=[];
+const photoInput=document.getElementById('damagePhotos'),photoPicker=document.getElementById('photoPicker'),photoCount=document.getElementById('photoCount');let selectedPhotos=[],photoUrls=[],submissionId=crypto.randomUUID(),sending=false;const photoCache=new Map(),receipt=document.getElementById('bioReceipt'),receiptDone=document.getElementById('receiptDone');
 window.dataLayer=window.dataLayer||[];
 function track(event,data={}){window.dataLayer.push({event,...data});document.dispatchEvent(new CustomEvent('nachos:analytics',{detail:{event,...data}}));if(typeof window.gtag==='function')window.gtag('event',event,data);if(typeof window.fbq==='function')window.fbq('trackCustom',event,data)}
 function options(name,items){const select=form.elements[name];select.innerHTML='<option value="">—</option>'+items.map(x=>`<option>${x}</option>`).join('')}
@@ -254,18 +283,47 @@ function updateMessageLinks(){quickSms.href=`sms:${PHONE}?&body=${encodeURICompo
 function renderPhotos(){photoUrls.forEach(URL.revokeObjectURL);photoUrls=[];photoPicker.querySelectorAll('.photo-preview').forEach(el=>el.remove());selectedPhotos.forEach((file,index)=>{const url=URL.createObjectURL(file),item=document.createElement('div');photoUrls.push(url);item.className='photo-preview';item.innerHTML=`<img src="${url}" alt=""><button type="button" aria-label="Remove photo">×</button>`;item.querySelector('button').onclick=()=>{selectedPhotos.splice(index,1);renderPhotos()};photoPicker.insertBefore(item,photoInput.parentElement)});photoInput.parentElement.hidden=selectedPhotos.length>=5;photoCount.textContent=selectedPhotos.length?`${selectedPhotos.length} ${copy[lang].photoSelected}`:''}
 function clearPhotos(){selectedPhotos=[];photoInput.value='';renderPhotos()}
 function render(){const t=copy[lang];document.documentElement.lang=lang;document.querySelectorAll('[data-k]').forEach(el=>el.textContent=t[el.dataset.k]);language.classList.toggle('es',lang==='es');language.children[0].classList.toggle('active',lang==='en');language.children[2].classList.toggle('active',lang==='es');options('drive',t.driveOptions);options('insurance',t.insuranceOptions);updateBusinessStatus();updateMessageLinks();renderPhotos();localStorage.setItem('nachos-quick-language',lang)}
-function resetFlow(){form.reset();clearPhotos();form.classList.remove('active');casePicker.hidden=false;urgent.classList.remove('open');remaining.classList.remove('paused');document.getElementById('error').classList.remove('show')}
-function setModal(open){modal.classList.toggle('open',open);document.body.classList.toggle('locked',open);if(open){resetFlow();track('assessment_open',{language:lang})}}
+function resetFlow(){form.reset();clearPhotos();photoCache.clear();form.classList.remove('active');casePicker.hidden=false;urgent.classList.remove('open');remaining.classList.remove('paused');document.getElementById('error').classList.remove('show');receipt.hidden=true;modal.querySelector('.modal-card').classList.remove('receipt-mode')}
+function setModal(open){modal.classList.toggle('open',open);document.body.classList.toggle('locked',open);if(open){if(!form.classList.contains('active')&&receipt.hidden)resetFlow();track('assessment_open',{language:lang})}else if(!receipt.hidden){resetFlow();submissionId=crypto.randomUUID()}}
 function configureCase(type){const t=copy[lang],collision=type==='collision',body=type==='body';driveGroup.classList.toggle('field-hidden',!collision);insuranceGroup.classList.toggle('field-hidden',body);urgent.classList.remove('open');remaining.classList.remove('paused');drive.value='';form.elements.insurance.value='';if(collision){detailTypeLabel.textContent=t.detailCollision;options('detailType',t.collisionOptions)}else if(body){detailTypeLabel.textContent=t.detailBody;options('detailType',t.bodyOptions)}else{detailTypeLabel.textContent=t.detailInsurance;options('detailType',t.insuranceHelpOptions)}}
 function chooseCase(type){const map={collision:copy[lang].situations[0],body:copy[lang].situations[1],insurance:copy[lang].situations[3]};form.dataset.case=type;form.elements.situation.value=map[type];configureCase(type);casePicker.hidden=true;form.classList.add('active');track('assessment_type_selected',{type,language:lang});form.querySelector('input[name="name"]').focus()}
-language.onclick=()=>{lang=lang==='en'?'es':'en';render();if(modal.classList.contains('open'))resetFlow();track('language_changed',{language:lang})};
+language.onclick=()=>{
+ if(sending)return;
+ const active=form.classList.contains('active'),type=form.dataset.case,oldDrive=drive.selectedIndex,oldInsurance=form.elements.insurance.selectedIndex,oldDetail=detailType.selectedIndex;
+ lang=lang==='en'?'es':'en';render();
+ if(active&&type){
+  configureCase(type);drive.selectedIndex=oldDrive;form.elements.insurance.selectedIndex=oldInsurance;detailType.selectedIndex=oldDetail;
+  form.elements.situation.value=type==='collision'?copy[lang].situations[0]:type==='body'?copy[lang].situations[1]:copy[lang].situations[3];
+  if(type==='collision'&&oldDrive===2){urgent.classList.add('open');remaining.classList.add('paused');}
+ }
+ track('language_changed',{language:lang})
+};
 document.getElementById('open').onclick=()=>setModal(true);document.getElementById('close').onclick=()=>setModal(false);document.getElementById('changeCase').onclick=resetFlow;document.querySelectorAll('[data-case]').forEach(button=>button.onclick=()=>chooseCase(button.dataset.case));
-photoInput.onchange=()=>{selectedPhotos=[...selectedPhotos,...Array.from(photoInput.files||[])].slice(0,5);photoInput.value='';renderPhotos();track('damage_photos_selected',{count:selectedPhotos.length,language:lang})};
+photoInput.onchange=()=>{const incoming=Array.from(photoInput.files||[]);const error=document.getElementById('error');if(selectedPhotos.length+incoming.length>5||incoming.some(f=>!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>8*1024*1024)){error.textContent=copy[lang].photoError;error.classList.add('show');photoInput.value='';return}error.classList.remove('show');selectedPhotos=[...selectedPhotos,...incoming];photoInput.value='';renderPhotos();track('damage_photos_selected',{count:selectedPhotos.length,language:lang})};
 drive.onchange=()=>{const no=drive.value===copy[lang].driveOptions[1];urgent.classList.toggle('open',no);remaining.classList.toggle('paused',no);if(no)track('vehicle_not_drivable',{language:lang})};document.getElementById('continueForm').onclick=()=>{remaining.classList.remove('paused');track('urgent_continue_form',{language:lang})};
 document.querySelectorAll('a[href^="tel:"]').forEach(a=>a.addEventListener('click',()=>track(a.dataset.track||'call_click',{language:lang})));document.querySelectorAll('a[href^="sms:"]').forEach(a=>a.addEventListener('click',()=>track(a.dataset.track||'sms_click',{language:lang})));document.querySelector('a[href*="maps.app"]')?.addEventListener('click',()=>track('directions_click',{language:lang}));document.querySelectorAll('a[href="https://www.nachoslegacy.com/"]').forEach(a=>a.addEventListener('click',()=>track('full_website_click',{language:lang})));
 modal.onclick=e=>{if(e.target===modal)setModal(false)};document.addEventListener('keydown',e=>{if(e.key==='Escape')setModal(false)});
-form.onsubmit=e=>{e.preventDefault();const d=new FormData(form),required=['situation','detailType','name','vehicle','details','contact'],invalid=required.some(k=>!String(d.get(k)||'').trim());document.getElementById('error').classList.toggle('show',invalid);if(invalid){track('assessment_validation_error',{language:lang});return}const body=lang==='es'?`Nueva consulta desde Instagram\n\nNombre: ${d.get('name')}\nVehículo: ${d.get('vehicle')}\nConsulta: ${d.get('situation')}\nTipo o zona: ${d.get('detailType')}\n¿Puede circular?: ${d.get('drive')||'No indicado'}\nSeguro: ${d.get('insurance')||'No indicado'}\nDetalle: ${d.get('details')}\nContacto: ${d.get('contact')}\n\nAdjunto fotos del daño a continuación.`:`New consultation from Instagram\n\nName: ${d.get('name')}\nVehicle: ${d.get('vehicle')}\nRequest: ${d.get('situation')}\nType or area: ${d.get('detailType')}\nDrivable?: ${d.get('drive')||'Not provided'}\nInsurance: ${d.get('insurance')||'Not provided'}\nDetails: ${d.get('details')}\nContact: ${d.get('contact')}\n\nI will attach damage photos next.`;
-track('assessment_completed',{language:lang,situation:String(d.get('situation'))});location.href=`sms:${PHONE}?&body=${encodeURIComponent(body)}`};render();
+form.onsubmit=async e=>{
+ e.preventDefault();if(sending)return;
+ const d=new FormData(form),fields=Object.fromEntries(d.entries()),required=['situation','detailType','name','vehicle','details','contact'];
+ const error=document.getElementById('error');error.classList.remove('show');
+ if(required.some(k=>!String(d.get(k)||'').trim())||!d.has('consent')){error.textContent=copy[lang].required;error.classList.add('show');track('assessment_validation_error',{language:lang});return}
+ const button=form.querySelector('[type="submit"]'),label=button.querySelector('[data-k="send"]');
+ let payload;
+ try{payload=buildBioIntake({submissionId,lang,caseType:form.dataset.case,fields,driveIndex:drive.selectedIndex,insuranceIndex:form.elements.insurance.selectedIndex,url:location.href,referrer:document.referrer});}
+ catch(err){error.textContent=err.message==='contact'?copy[lang].contactError:copy[lang].required;error.classList.add('show');return}
+ sending=true;button.disabled=true;document.getElementById('changeCase').disabled=true;photoInput.disabled=true;label.textContent=copy[lang].sending;
+ try{
+  payload.photos=await uploadBioPhotos(selectedPhotos,fetch,photoCache);
+  const result=await sendBioIntake(payload);
+  document.getElementById('bioReference').textContent=result.caseNumber;
+  form.classList.remove('active');casePicker.hidden=true;receipt.hidden=false;modal.querySelector('.modal-card').classList.add('receipt-mode');receipt.focus();
+  track('assessment_completed',{language:lang,type:form.dataset.case});track('assessment_submitted',{language:lang,source:'bio_landing'});
+ }catch(err){error.textContent=err.message==='photo_format'||err.message==='photos'?copy[lang].photoError:err.message==='photo_unavailable'?copy[lang].photoUnavailable:copy[lang].sendError;error.classList.add('show');error.scrollIntoView({block:'nearest'});}
+ finally{sending=false;button.disabled=false;document.getElementById('changeCase').disabled=false;photoInput.disabled=false;label.textContent=copy[lang].send;}
+};
+receiptDone.onclick=()=>setModal(false);
+render();
 </script>
 </body>
 </html>
